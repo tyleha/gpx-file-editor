@@ -34,6 +34,14 @@ export default function App() {
     setSelectedIndices(indices)
   }, [track])
 
+  const handleMovePoint = useCallback((index, lat, lon) => {
+    if (!track) return
+    const newPoints = track.points.map((pt, i) =>
+      i === index ? { ...pt, lat, lon } : pt
+    )
+    setTrack({ ...track, points: newPoints })
+  }, [track])
+
   const handleDelete = () => {
     if (!track || selectedIndices.size === 0) return
     const newPoints = deleteSelectedPoints(track.points, selectedIndices)
@@ -93,6 +101,7 @@ export default function App() {
           selectMode={selectMode}
           selectedIndices={selectedIndices}
           onSelect={handleSelect}
+          onMovePoint={handleMovePoint}
         />
       )}
     </div>

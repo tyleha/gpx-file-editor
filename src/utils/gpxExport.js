@@ -15,9 +15,13 @@ export function buildExportXml(originalXml, currentPoints) {
     const current = survivingByOrigIdx.get(i);
     if (!current) {
       trkpts[i].parentNode.removeChild(trkpts[i]);
-    } else if (current.time) {
-      const timeEl = trkpts[i].querySelector('time');
-      if (timeEl) timeEl.textContent = current.time;
+    } else {
+      trkpts[i].setAttribute('lat', current.lat);
+      trkpts[i].setAttribute('lon', current.lon);
+      if (current.time) {
+        const timeEl = trkpts[i].querySelector('time');
+        if (timeEl) timeEl.textContent = current.time;
+      }
     }
   }
 
